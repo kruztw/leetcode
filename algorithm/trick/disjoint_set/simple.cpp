@@ -22,7 +22,7 @@ int findParent1(int x) {
 
 int findParent2(int x) {
 	if (x != parent[x])
-		parent[x] = findParent2(x); // 把 parent[x] 往上搬
+		parent[x] = findParent2(parent[x]); // 把 parent[x] 往上搬
 	return parent[x];
 }
 
