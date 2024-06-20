@@ -5,10 +5,10 @@ gcd list: O(NlogN)
 ```cpp=
 list<pair<int, int>> gcds;
 for (int i = 0; i < n; ++i) {
-    gcds.push_front(nums[i]);
+    gcds.push_front({i, nums[i]});
     for (auto it = begin(gcds); it != end(gcds); ++it) {
         if (it != begin(gcds)) {
-            it->second = gcd(it->second, prev(it)->second);
+            it->second = __gcd(it->second, prev(it)->second);
             if (prev(it)->second == it->second)
                 gcds.erase(prev(it));
         }
