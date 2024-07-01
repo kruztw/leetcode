@@ -7,7 +7,7 @@ int rabin_karp(vector<int> &s, vector<int> &t) {
         xn = (xn * x) % mod;
     }
     for (int i = 0; i < lenS; ++i) {
-        hashS = (hashS * x + s[i]) % m;
+        hashS = (hashS * x + s[i]) % mod;
         if (i >= lenT)
             hashS = (mod + hashS - xn * s[i - lenT] % mod) % mod;
         if (i + 1 >= lenT && hashT == hashS)
