@@ -18,3 +18,4 @@ int rabin_karp(vector<int> &s, vector<int> &t) {
 ```
 
 [code](https://leetcode.com/problems/number-of-subarrays-that-match-a-pattern-ii/solutions/4708788/rabin-karp/)
+[collision check](https://leetcode.com/problems/strings-differ-by-one-character/solutions/802871/rabin-karp-o-nm/)
