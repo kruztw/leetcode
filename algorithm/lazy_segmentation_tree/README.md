@@ -5,8 +5,8 @@ long long query(int l, int r, int p=1, int tl=0, int tr=N) {
     if (l > r)
         return 0;
     if(l == tl && r == tr)
-        return (val[p] + lazy[p]*(r-l+1LL)) % mod;
-        return (val[p] + lazy[p]) % mod; // Range Max Query
+        return (tree[p] + lazy[p]*(r-l+1LL)) % mod;
+        return (tree[p] + lazy[p]) % mod; // Range Max Query
         
     int tm = (tl+tr)/2;
     int ql = query(l, min(tm, r), 2*p, tl, tm); 
