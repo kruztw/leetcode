@@ -8,8 +8,7 @@ public:
     
     ~Trie() {
         for (auto x: childs)
-            if (x)
-                delete x;
+            delete x;
     }
 
     void insert(string &s) {
