@@ -1,3 +1,8 @@
+4*N => lazy needs another layer
+   O
+ O   O    <=arr (N=2)
+O O O O   <=update arr will update arr child's lazy
+
 ```cpp=
 const int N = 100000;
 int tree[4*N], lazy[4*N], arr[N+1], mod = 1e9 + 7;
