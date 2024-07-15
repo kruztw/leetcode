@@ -1,12 +1,14 @@
+```
 4*N => lazy needs another layer
    O
  O   O    <=arr (N=2)
 O O O O   <=update arr will update arr child's lazy
+```
 
 ```cpp=
 const int N = 100000;
 int tree[4*N], lazy[4*N], arr[N+1], mod = 1e9 + 7;
-long long query(int l, int r, int p=1, int tl=0, int tr=N) {
+long long query(int l, int r, int p=1, int tl=0, int tr=N) { // note: tl==tr -> l==r ; l==r doesn't mean tl==tr
     if (l > r)
         return 0;
     if(l == tl && r == tr)
@@ -53,3 +55,37 @@ void build_tree(int p = 1, int tl = 0, int tr = N) {
 [ref](https://www.geeksforgeeks.org/lazy-propagation-in-segment-tree/)
 [rmq code ref](https://leetcode.com/problems/block-placement-queries/submissions/1267778143/)
 [tree node 存 sturct](https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/submissions/1268225804/)
+
+```cpp=
+const int N = 100000;
+int tree[4*N], mod = 1e9 + 7;
+long long query(int l, int r, int p=1, int tl=0, int tr=N) {
+    if (l > r)
+        return 0;
+    if (l == tl && r == tr)
+        return tree[p];
+        
+    int tm = (tl+tr)/2;
+    int ql = query(l, min(tm, r), target, 2*p, tl, tm);
+    int qr = query(max(l, tm+1), r, target, 2*p+1, tm+1, tr);
+
+    return max(ql, qr);
+}
+
+void build_tree(vector<int> &arr, int p = 1, int tl = 0, int tr = N) {
+    if(tl > tr) return;
+    if(tl == tr) {
+        tree[p] = arr[tl];
+        return;
+    }
+    int tm = (tl+tr)/2;
+    build_tree(arr, 2*p, tl, tm);
+    build_tree(arr, 2*p+1, tm+1, tr);
+    tree[p] = max(tree[p*2], tree[p*2+1]);
+}
+
+build_tree(arr, 1, 0, arr.size()-1); // tr 一定要一樣
+query(l, r, 1, 0, arr.size()-1);     // tr 一定要一樣
+```
+
+[ref](https://leetcode.com/problems/find-building-where-alice-and-bob-can-meet/submissions/1321547413/)
