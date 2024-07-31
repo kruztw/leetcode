@@ -9,21 +9,21 @@ public:
             update(i, nums[i]);
     }
     
-    void update(int i, int val) {
+    void update(int i, long long val) {
         ++i; // 題目從 0 開始, 要 +1
-        int diff = val - orig[i];
+        long long diff = val - orig[i];
         orig[i] = val;
         for (; i < data.size(); i += (i&-i)) // i = 0 會進入無窮迴圈, 所以 (a)
             data[i] += diff;
     }
     
-    int queryRange(int i, int j) {
+    long long queryRange(int i, int j) {
         return query(j) - query(i-1);
     }
     
-    int query(int i) {
+    long long query(int i) {
         ++i; // 題目從 0 開始, 要 +1
-        int ret = 0;
+        long long ret = 0;
         for (; i > 0; i -= (i&-i))
             ret += data[i];
         return ret;
@@ -31,7 +31,7 @@ public:
     
 private:
     //int lowbit(int x) { return x & (-x); } // 參考用
-    vector<int> orig, data;
+    vector<long long> orig, data;
 };
 
 BIT bit(nums);
