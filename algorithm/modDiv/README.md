@@ -1,8 +1,8 @@
 ```cpp=
 // ps: a!/b! != (a! %mod)/(b! %mod)
 // mod inverse (費馬小定理: b^-1 同餘 b^(mod-2)
-long modinv(long a, long mod){
-    long b = mod-2, ret = 1;
+long long modinv(long long a, long long mod){
+    long long b = mod-2, ret = 1;
     for (; b; b >>= 1) {
         if (b&1) ret = ret * a % mod;
         a = a%mod*a%mod%mod;
