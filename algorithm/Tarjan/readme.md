@@ -9,18 +9,18 @@
 */
 
 void Tarjan(vector<vector<int>> &adj, int p, int pp, int &t, vector<int> &low, vector<int> &ts) {
-        time[p] = low[p] = t++;
-        for (auto x: adj[p]) {
-                if (time[x] == 0) {
-                        Tarjan(adj, x, p, t, low, ts);
-                        low[p] = min(low[p], low[x]);
-                } else if (x != pp) {
-                        low[p] = min(low[p], ts[x]);
-                }
+  time[p] = low[p] = t++;
+  for (auto x: adj[p]) {
+    if (time[x] == 0) {
+      Tarjan(adj, x, p, t, low, ts);
+      low[p] = min(low[p], low[x]);
+    } else if (x != pp) {
+      low[p] = min(low[p], ts[x]);
+    }
 
-                if (low[x] > ts[p])
-                        cout << "bridge: " << p << " " << x << endl;
-        }
+    if (low[x] > ts[p])
+      cout << "bridge: " << p << " " << x << endl;
+  }
 }
 
 // direcitonal
@@ -57,4 +57,5 @@ void Tarjan(vector<vector<ll>> &adj, ll p) {
 }
 ```
 [code](https://web.ntnu.edu.tw/~algo/ConnectedGraph.html)
+
 [cses Flight Routes Check](https://cses.fi/problemset/task/1682/)
