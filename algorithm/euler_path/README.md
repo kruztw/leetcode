@@ -1,6 +1,6 @@
 ```cpp=
 // postorder !! {1,3},{1,2},{2,1}
-void euler(vector<int,vector<int>> &adj, int p, vector<vector<int>> &path) {
+void euler(vector<vector<int>> &adj, int p, vector<vector<int>> &path) {
     while (adj[p].size()) {
         int x = adj[p].back();
         adj[p].pop_back();
