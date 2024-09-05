@@ -1,22 +1,36 @@
 ```cpp=
-// postorder !! {1,3},{1,2},{2,1}
-void euler(vector<vector<int>> &adj, int p, vector<vector<int>> &path) {
-    while (adj[p].size()) {
-        int x = adj[p].back();
-        adj[p].pop_back();
-        dfs(adj, x, ans);
-        path.push_back({p, x});
-    }
+set<ll> adj[1000005];
+vector<ll> ans;
+
+void dfs(ll p) {
+  while (adj[p].size()) {
+    ll x = *adj[p].begin(); adj[p].erase(x);
+    adj[x].erase(p);
+    dfs(x);
+  }
+  ans.push_back(p);
 }
 
-start = 0; // any node
-for (int i = 0; i < n; ++i)
-  if (out[i] - in[i] == 1)
-    start = i;
-  
-vector<vector<int>> path;
-euler(adj, start, path);
-reverse(path.begin(), path.end());
+// n cities, m roads
+
+for (ll i = 1; i <= n; ++i)
+  if (adj[i].size()%2) {
+    cout <<"IMPOSSIBLE\n";
+    return;
+}
+
+dfs(1);
+if (ans.size()!=m+1) cout << "IMPOSSIBLE\n";
+else {
+  reverse(ans.begin(), ans.end());
+  for (ll i = 0; i <= m; ++i)
+    cout << ans[i] << " ";
+  cout << "\n";
+}
 ```
 
+[cses Mail Delivery](https://yuihuang.com/cses-1691/)
+
 [ref](https://leetcode.com/problems/valid-arrangement-of-pairs/solutions/1611978/c-eulerian-path-with-explanation/)
+
+
