@@ -58,34 +58,45 @@ void build_tree(int p = 1, int tl = 0, int tr = N) {
 
 ```cpp=
 const int N = 100000;
-int tree[4*N], mod = 1e9 + 7;
+int tt[4*N], mod = 1e9 + 7;
 long long query(int l, int r, int p=1, int tl=0, int tr=N) {
-    if (l > r)
-        return 0;
-    if (l == tl && r == tr)
-        return tree[p];
+    if (l>tr || r<tl) return 0;
+    if (l<=tl && r>=tr) return tt[p];
         
-    int tm = (tl+tr)/2;
-    int ql = query(l, min(tm, r), target, 2*p, tl, tm);
-    int qr = query(max(l, tm+1), r, target, 2*p+1, tm+1, tr);
+    ll tm = (tl+tr)/2;
+    ll ql = query(l, r, target, 2*p, tl, tm);
+    ll qr = query(l, r, target, 2*p+1, tm+1, tr);
 
     return max(ql, qr);
 }
 
-void build_tree(vector<int> &arr, int p = 1, int tl = 0, int tr = N) {
-    if(tl > tr) return;
-    if(tl == tr) {
-        tree[p] = arr[tl];
+void update(ll i, ll v, ll p = 1, ll l = 1, ll r = n) {
+  if (l==r) {
+    tt[p] = v;
+    return;
+  }
+
+  ll m = (l+r)/2;
+  if (i<=m) update(i, v, 2*p, l, m);
+  else update(i, v, 2*p+1, m+1, r);
+  tt[p] = max(tt[2*p], tt[2*p+1]);
+}
+
+void build_tree(vector<int> &A, int p = 1, int tl = 0, int tr = N) {
+    if(tl==tr) {
+        tt[p] = A[tl];
         return;
     }
     int tm = (tl+tr)/2;
-    build_tree(arr, 2*p, tl, tm);
-    build_tree(arr, 2*p+1, tm+1, tr);
-    tree[p] = max(tree[p*2], tree[p*2+1]);
+    build_tree(A, 2*p, tl, tm);
+    build_tree(A, 2*p+1, tm+1, tr);
+    tt[p] = max(tt[2*p], tt[2*p+1]);
 }
 
-build_tree(arr, 1, 0, arr.size()-1); // tr 一定要一樣
-query(l, r, 1, 0, arr.size()-1);     // tr 一定要一樣
+build_tree(A, 1, 0, A.size()-1); // tr 一定要一樣
+query(l, r, 1, 0, A.size()-1);   // tr 一定要一樣
 ```
 
-[ref](https://leetcode.com/problems/find-building-where-alice-and-bob-can-meet/submissions/1321547413/)
+[cses Prefix Sum Queries](https://cses.fi/problemset/task/2166/)
+
+[ref](https://usaco.guide/problems/cses-2166-prefix-sum-queries/solution)
