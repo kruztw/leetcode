@@ -42,6 +42,34 @@ bit.update(i, 1);
 
 ## partial max
 
+### query
+```cpp=
+class BIT {
+ public:
+  BIT(int n) {
+    data.resize(n+1);
+  }
+
+  void update(int i, int v) {
+    ++i;
+    for (; i < data.size(); i+=i&-i)
+      data[i] = max(data[i], v);
+  }
+
+  int query(int i) {
+    ++i;
+    int ret = 0;
+    for (; i; i-=i&-i)
+      ret = max(ret, data[i]);
+    return ret;
+  }
+
+private:
+  vector<int> data;
+};
+```
+
+### range query
 ```cpp=
 class BIT {
 public:
@@ -77,4 +105,5 @@ private:
 };
 ```
 
+[leetcode 2921](https://leetcode.com/problems/maximum-profitable-triplets-with-increasing-prices-ii)
 [leetcode 2736](https://leetcode.com/problems/maximum-sum-queries/description/)
