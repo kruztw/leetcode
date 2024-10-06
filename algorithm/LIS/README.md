@@ -26,11 +26,12 @@ void backtrace(vector<int> &nums, vector<int> &parent, int cur) {
 }
 
 int n = nums.size();
-vector<pair<int,int>> v;
+vector<array<int,2>> v;
 vector<int> parent(n, -1);
 
 for (int i = 0; i < n; ++i) {
-    auto it = lower_bound(v.begin(), v.end(), nums[i]);
+    array<int,2> tmp = {nums[i],0};
+    auto it = lower_bound(v.begin(), v.end(), tmp);
     if (it == v.end()) {
         parent[i] = v.size() ? v.back().second : i;
         v.push_back({nums[i],i});
@@ -46,3 +47,10 @@ for (int i = 0; i < n; ++i) {
 
 backtrace(nums, parent, v.back().second);
 ```
+```
+/* 每個 group 只能選一個
+ * {{3,1}, {4,2,0}, ...}
+ * sort 每個 group 大到小，再做 LIS
+ */
+```
+[leetcode 3288](https://leetcode.com/problems/length-of-the-longest-increasing-path/description/)
