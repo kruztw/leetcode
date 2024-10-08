@@ -25,3 +25,4 @@ void getZ(string &s, vector<int> &Z) {
     }
 }
 ```
+[leetcode 3303](https://leetcode.com/problems/find-the-occurrence-of-first-almost-equal-substring/description/)
